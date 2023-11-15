@@ -1,6 +1,7 @@
-openai
+anthropic
 altair
 numpy
+openai==0.28.1
 pandas
 pydeck
 streamlit

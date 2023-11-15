@@ -1,11 +1,14 @@
 import time
 
 import numpy as np
+
 import openai
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import pinecone
 import streamlit as st
 import os
+
+from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+
 
 st.set_page_config(
     page_title="Ask | Money Matters",
@@ -26,19 +29,20 @@ Please enter a question about personal finance. You can tailor your question to 
 avatars={"system":"💻","user":"🤔","assistant":"💵"}
 
 anthropic = Anthropic()
+
 os.environ['PINECONE_API_ENV']='gcp-starter'
 os.environ['PINECONE_INDEX_NAME']='pinecone-index'
 
 PINECONE_API_KEY=st.secrets['PINECONE_API_KEY']
 PINECONE_API_ENV=os.environ['PINECONE_API_ENV']
 PINECONE_INDEX_NAME=os.environ['PINECONE_INDEX_NAME']
+
 openai.api_key=st.secrets['OPENAI_API_KEY']
-anthropic.api_key=st.secrets['ANTHROPIC_API_KEY']
 
 def augmented_content(inp):
     # Create the embedding using OpenAI keys
     # Do similarity search using Pinecone
-    # Return the top 5 results
+    # Return the top 3 results 
     embedding=openai.Embedding.create(model="text-embedding-ada-002", input=inp)['data'][0]['embedding']
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
     index = pinecone.Index(PINECONE_INDEX_NAME)
@@ -49,8 +53,6 @@ def augmented_content(inp):
     #print(f"RR: {rr}")
     #st.write(f"RR: {rr}")
     return rr
-
-
 
 
 SYSTEM_MESSAGE={"role": "system", 
@@ -73,7 +75,6 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"],avatar=avatar):
             st.markdown(message["content"])
 
-
 if prompt := st.chat_input("Ask your question here!"):
     retrieved_content = augmented_content(prompt)
     #print(f"Retrieved content: {retrieved_content}")
@@ -95,22 +96,21 @@ The user's question was: {prompt}
         print(f"LLM Message List: {messageList}")
         with st.sidebar.expander("Prompt provided to Anthropic"):
             st.write(f"{messageList}")
+        completion = anthropic.completions.create(
+            model="claude-2",
+            max_tokens_to_sample=300,
+            prompt=f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}",
+        )
+        full_response=completion.completion
+        message_placeholder.markdown(full_response)
         
-        # for response in openai.ChatCompletion.create(
-         #   model="gpt-3.5-turbo",
-          #  messages=messageList, stream=True):
-           # full_response += response.choices[0].delta.get("content", "")
-            # message_placeholder.markdown(full_response + "▌")
-        # message_placeholder.markdown(full_response)
-    completion = anthropic.completions.create(
-        model="claude-2",
-        max_tokens_to_sample=300,
-    # prompt=f"{HUMAN_PROMPT} how does a court case get to the Supreme Court?{AI_PROMPT}",
-        prompt=f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}",
-    )
-    print(completion.completion)
-    full_response=completion.completion
-    message_placeholder.markdown(full_response)
+        #for response in openai.ChatCompletion.create(
+        #    model="gpt-3.5-turbo",
+        #    messages=messageList, stream=True):
+        #    full_response += response.choices[0].delta.get("content", "")
+        #    message_placeholder.markdown(full_response + "▌")
+        #message_placeholder.markdown(full_response)
     #with st.sidebar.expander("Retrieval context provided to GPT-3"):
      #   st.write(f"{retrieved_content}")
-#st.session_state.messages.append({"role": "assistant", "content": full_response})
+     
+    st.session_state.messages.append({"role": "assistant", "content": full_response})

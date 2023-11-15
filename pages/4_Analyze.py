@@ -1,4 +1,4 @@
-import openai
+import anthropic
 import streamlit as st
 
 st.set_page_config(
@@ -49,8 +49,8 @@ if prompt := st.chat_input("Please paste the financial information/press release
     with st.chat_message("assistant", avatar=avatars["assistant"]):
         message_placeholder = st.empty()
         full_response = ""
-        for response in openai.ChatCompletion.create(
-            model="gpt-4",
+        for response in anthropic.ChatCompletion.create(
+            model="claude-2",
             messages=[{"role": m["role"], "content": m["content"]}
                       for m in st.session_state.messages], stream=True):
             full_response += response.choices[0].delta.get("content", "")

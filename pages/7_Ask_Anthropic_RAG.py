@@ -1,11 +1,14 @@
 import time
 
 import numpy as np
+
 import openai
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import pinecone
 import streamlit as st
 import os
+
+from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+
 
 st.set_page_config(
     page_title="Ask | Money Matters",
@@ -26,14 +29,15 @@ Please enter a question about personal finance. You can tailor your question to 
 avatars={"system":"💻","user":"🤔","assistant":"💵"}
 
 anthropic = Anthropic()
+
 os.environ['PINECONE_API_ENV']='gcp-starter'
 os.environ['PINECONE_INDEX_NAME']='pinecone-index'
 
 PINECONE_API_KEY=st.secrets['PINECONE_API_KEY']
 PINECONE_API_ENV=os.environ['PINECONE_API_ENV']
 PINECONE_INDEX_NAME=os.environ['PINECONE_INDEX_NAME']
+
 openai.api_key=st.secrets['OPENAI_API_KEY']
-anthropic.api_key=st.secrets['ANTHROPIC_API_KEY']
 
 def augmented_content(inp):
     # Create the embedding using OpenAI keys
@@ -50,11 +54,25 @@ def augmented_content(inp):
     #st.write(f"RR: {rr}")
     return rr
 
-
+def convert_to_anthropic(mList):
+    createdMessage=""
+    #for m in mList:
+    for i in range(len(mList) ):
+        m= mList[i]
+        role=m["role"]
+        content=m["content"]
+        #if(role=="system"):
+         #   createdMessage += f"{AI_PROMPT} {content}"
+        if(role=="assistant"):
+            createdMessage += f"{AI_PROMPT} {content}"
+        if(role=="user"):
+            createdMessage += f"{HUMAN_PROMPT} {content}"
+    createdMessage += f" {AI_PROMPT}"
+    return createdMessage
 
 
 SYSTEM_MESSAGE={"role": "system", 
-                "content": """Ignore all previous commands. 
+                "content": """
                 You are a helpful and patient financial guide. 
                 When asked a question, your response should be polite, and you should not only answer a question but provide a larger lesson about finance including examples. 
                 Using markdown language formatting, bold key phrases and use bullet points when relevant.
@@ -72,7 +90,6 @@ for message in st.session_state.messages:
         avatar=avatars[message["role"]]
         with st.chat_message(message["role"],avatar=avatar):
             st.markdown(message["content"])
-
 
 if prompt := st.chat_input("Ask your question here!"):
     retrieved_content = augmented_content(prompt)
@@ -93,24 +110,25 @@ The user's question was: {prompt}
                       for m in st.session_state.messages]
         messageList.append({"role": "user", "content": prompt_guidance})
         print(f"LLM Message List: {messageList}")
+        anthropic_prompt=convert_to_anthropic(messageList)
         with st.sidebar.expander("Prompt provided to Anthropic"):
-            st.write(f"{messageList}")
+            st.write(f"{anthropic_prompt}")
+
+        completion = anthropic.completions.create(
+            model="claude-2",
+            max_tokens_to_sample=300,
+            prompt=f"{anthropic_prompt}",
+        )
+        full_response=completion.completion
+        #full_response="\n\n ** FAKE LLM Response\n\n"
+        message_placeholder.markdown(full_response)
         
-        # for response in openai.ChatCompletion.create(
-         #   model="gpt-3.5-turbo",
-          #  messages=messageList, stream=True):
-           # full_response += response.choices[0].delta.get("content", "")
-            # message_placeholder.markdown(full_response + "▌")
-        # message_placeholder.markdown(full_response)
-    completion = anthropic.completions.create(
-        model="claude-2",
-        max_tokens_to_sample=300,
-    # prompt=f"{HUMAN_PROMPT} how does a court case get to the Supreme Court?{AI_PROMPT}",
-        prompt=f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}",
-    )
-    print(completion.completion)
-    full_response=completion.completion
-    message_placeholder.markdown(full_response)
+        #for response in openai.ChatCompletion.create(
+        #    model="gpt-3.5-turbo",
+        #    messages=messageList, stream=True):
+        #    full_response += response.choices[0].delta.get("content", "")
+        #    message_placeholder.markdown(full_response + "▌")
+        #message_placeholder.markdown(full_response)
     #with st.sidebar.expander("Retrieval context provided to GPT-3"):
      #   st.write(f"{retrieved_content}")
-#st.session_state.messages.append({"role": "assistant", "content": full_response})
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
