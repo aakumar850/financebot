@@ -38,8 +38,8 @@ def augmented_content(inp):
     # Create the embedding using OpenAI keys
     # Do similarity search using Pinecone
     # Return the top 5 results
-    embedding=openai.Embedding.create(model="text-embedding-ada-002", input=inp)['data'][0]['embedding']
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
+    embedding=openai.Embedding.create(model="text-embedding-ada-002", input=inp)['data'][0]['embedding']
     index = pinecone.Index(PINECONE_INDEX_NAME)
     results=index.query(embedding,top_k=3,include_metadata=True)
     #print(f"Results: {results}")
