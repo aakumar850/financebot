@@ -9,7 +9,6 @@ import os
 
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 
-
 st.set_page_config(
     page_title="Ask | Money Matters",
     page_icon="Personalized.png",
