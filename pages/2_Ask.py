@@ -1,8 +1,9 @@
 import time
 
 import numpy as np
-import openai
+from openai import OpenAI
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+from pinecone import Pinecone
 import pinecone
 import streamlit as st
 import os
@@ -11,7 +12,7 @@ st.set_page_config(
     page_title="Ask | Money Matters",
     page_icon="Personalized.png",
 )
-
+client=OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
 (column1,column2)=st.columns([3,7])
 column1.image("Personalized.png", width=100)
 column2.title("Your financial mentor")
@@ -32,18 +33,25 @@ os.environ['PINECONE_INDEX_NAME']='pinecone-index'
 PINECONE_API_KEY=st.secrets['PINECONE_API_KEY']
 PINECONE_API_ENV=os.environ['PINECONE_API_ENV']
 PINECONE_INDEX_NAME=os.environ['PINECONE_INDEX_NAME']
-openai.api_key=st.secrets['OPENAI_API_KEY']
+#openai.api_key=st.secrets['OPENAI_API_KEY']
 anthropic.api_key=st.secrets['ANTHROPIC_API_KEY']
 
 def augmented_content(inp):
     # Create the embedding using OpenAI keys
     # Do similarity search using Pinecone
     # Return the top 5 results
-    embedding=openai.Embedding.create(model="text-embedding-ada-002", input=inp)['data'][0]['embedding']
-    pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
-    index = pinecone.Index(PINECONE_INDEX_NAME)
-    results=index.query(embedding,top_k=3,include_metadata=True)
-    #print(f"Results: {results}")
+    print(f"42 PINECONE_API_KEY={PINECONE_API_KEY}")
+    #embedding=openai.Embedding.create(model="text-embedding-ada-002", input=inp)['data'][0]['embedding']
+    embedding=client.embeddings.create(model="text-embedding-ada-002", input=inp).data[0].embedding
+    print(f"44 PINECONE_API_KEY={PINECONE_API_KEY}")
+    pc = Pinecone(api_key=PINECONE_API_KEY)
+   # pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
+    print(f"46 PINECONE_API_KEY={PINECONE_API_KEY}")
+    #index = pinecone.Index(PINECONE_INDEX_NAME)
+    index = pc.Index(PINECONE_INDEX_NAME)
+    print(f"48 PINECONE_API_KEY={PINECONE_API_KEY}")
+    results=index.query(vector=embedding,top_k=3,include_metadata=True)
+    print(f"Results: {results}")
     #st.write(f"Results: {results}")
     rr=[ r['metadata']['text'] for r in results['matches']]
     #print(f"RR: {rr}")
@@ -103,8 +111,9 @@ The user's question was: {prompt}
             # message_placeholder.markdown(full_response + "▌")
         # message_placeholder.markdown(full_response)
     completion = anthropic.completions.create(
-        model="claude-2",
-        max_tokens_to_sample=300,
+        model="claude-2.1",
+        max_tokens_to_sample=1000,
+        temperature=0,
     # prompt=f"{HUMAN_PROMPT} how does a court case get to the Supreme Court?{AI_PROMPT}",
         prompt=f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}",
     )
