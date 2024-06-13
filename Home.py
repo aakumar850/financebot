@@ -3,26 +3,24 @@ import pandas as pd
 import openai
 
 st.set_page_config(
-    page_title="Home | Money Matters",
-    page_icon="Personalized.png",
+    page_title="Home | Your Portico Wellness Marketing Assistant",
+    page_icon="Portico care logo.png",
 )
 #AK test
-#title the page
-#st.title("Money Matters!")
+#title page
 #display an image
-st.image("Personalized.png", width=400)
+st.image("Portico care logo.png", width=400)
 
 st.title("About the website")
 st.write("""
-         **:green[Welcome to Money Matters!]** Here, we hope to help you take charge of your financial destiny 
-         by learning about personal finance. 
+         **:green[Welcome to Portico Wellness Marketing Assistant!]** Here, we hope to help you take charge of your company's brand 
+         through our interactive marketing chat assistant. 
          
-         - With the **:green[learn]** page, you can learn or refresh key personal finance concepts.
-         - With the **:green[ask]** page, you can ask our Chat-GPT-based AI any burning finance questions you have. It has been augmented to ensure specificity and reliability.
-         - With the **:green[apply]** page, you can quiz yourself on personal finance basics. These help you figure out where there may be gaps in your knowledge.
-         - With the **:green[analyze]** page, you can paste in any company press release or other article and we will summarize it and assess whether or not the company would be a good investment right now.
-         
-         We have augmented our AI using a set of carefully curated resources from reputable sources such as Khan Academy, the Federal Reserve Bank of St. Louis, TED-Ed, DardenMBA, PBS, and moneyinstructor.com, and *greatly appreciate* being able to build on their great work.
+         - With the **:green[Learn]** page, you can learn or refresh key marketing concepts.
+         - With the **:green[Strategize]** page, you can paste in your company profile, rough drafts and we will tailor marketing strategy plan for your business. Strategy that you can use to build brand awareness, promote your business or drive engagement.
+         - With the **:green[Plan]** page, you can learn key ways to plan your campaign strategy. Strategy that you can use for social media, email promotions and advertising campaigns. 
+         - With the **:green[Create]** page, you can paste in your company profile, rough drafts and we will create usable marketing content that you can use for creating a strong brand. Content that can go on your website, for ad campaigns, brochures, flyers, social media and many more.
+         - With the **:green[Generate Image]** page, you can provide a prompt and we will create a suitable image, which you can use on your website, for ad campaigns, brochures, flyers, social media posts and many more.
          """)
 
 

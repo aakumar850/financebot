@@ -1,20 +1,51 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Learn | Money Matters",
-    page_icon="Personalized.png",
+    page_title="Learn | Marketing Tips and Tricks",
+    page_icon="Portico care logo.png",
 )
 
-(column1,column2)=st.columns([3,7])
-column1.image("Personalized.png", width=100)
-column2.title("Learn key definitions")
+(column1,column2)=st.columns([2,8])
+column1.image("Portico care logo.png", width=100)
+column2.title("Key Marketing Concepts")
 
-st.write("""**Savings:** Money set away, perhaps to compound over time, in order to be retrieved later. Some examples of usage include retirement savings, an emergency fund in case of a sudden financial need, and saving up for a big purchase. Typically low-risk.
-    \n **Budgeting:** Creating a detailed plan to allot money. Two popular strategies are the 50-30-20 and 75-15-10 rules. While 50-30-20 (of income, 50% to essentials, 30% non-essentials, and 20% to savings) is more well known, it can be hard for people who aren't as financially secure, so 75-15-10 (75% to spending, 15% to investing, and 10% to savings) may be better.
-    \n **Credit:** The ability to make a purchase and pay for it later. For example, using a credit card and making the minimum monthly payments.
-    \n **Interest:** An additional amount of money which is the cost of borrowing money, which is calculated as a percent of the total loan amount. Compounding interest is like interest on interest, as it grows over both the loan amount and previous interest rates. Non-compounding interest is called simple interest.
-    \n **Debt:** Money which is owed to someone. Common examples are student loans and credit cards.
-    \n **Loans:** A type of debt where a lender like a bank provides money upfront that you agree to repay in installments plus interest by a maturity date. For example, taking out a $15,000 personal loan from a bank for home renovations that you will pay back over 5 years with an interest rate at 7%.
-    \n **Risk:** The potential for an investment or other such financial decision to result in an unexpected or not preferred outcome. Oftentimes correlated with volatility. Typically, high risk correlates to high returns and vice versa.
-    \n **Investing:** To put money into an asset (such as stocks, bonds, real estate, or gold) with the expectation that it will grow in the future. For example, you might invest in a mutual fund. Stocks are highly risky, and bonds are typically safe.
-""")
+st.write("""
+    \n **Target Audience** A target audience is the specific group of people most likely to be interested in your products or services. They are the people you want to reach with your marketing messages.
+    \n **Example:** As a yoga studio owner offering yoga therapy, you may have a target audience of adults aged 35-55 who are interested in holistic health and stress relief.
+
+   \n **Marketing Channels** Marketing channels are the various platforms and methods used to communicate with your target audience and promote your business. These can include digital channels like websites, social media, and email, as well as traditional channels like print ads, events, and referrals.
+   \n **Example:** As a CAI entrepreneur, you may use a combination of channels, such as a website, Meta page, Instagram account, and local health fairs, to reach your target audience.
+
+   \n **Content Marketing** Content marketing is a strategic approach focused on creating and distributing valuable, relevant, and consistent content to attract and retain a clearly defined audience and, ultimately, to drive profitable customer action.
+   \n **Example:** As an Ayurvedic practioner, you could create blog posts about the benefits of ayurveda, share helpful tips on social media, and offer a free e-book on stress management to attract potential clients.
+
+   \n **Search Engine Optimization (SEO)** SEO is the practice of optimizing your website and online content to improve your visibility and ranking in search engine results pages (SERPs). This helps drive more organic (non-paid) traffic to your website.
+   \n **Example:** As a CAI entrepreneur using Portico Care will optimize your website by including relevant keywords in your page titles, headings, and content, as well as building high-quality backlinks from other reputable websites.
+
+   \n **Conversion Rate** Conversion rate is the percentage of visitors to your website who take a desired action, such as filling out a contact form, subscribing to a newsletter, or making a purchase.
+   \n **Example:** If 100 people visit your website and 10 of them sign up for a free consultation, the conversion rate would be 10%.
+         
+   \n **Branding** Branding is the process of creating a unique identity for your business that distinguishes it from competitors. It encompasses elements such as your logo, color palette, tone of voice, and overall customer experience.
+   \n **Example:** As a CAI entrepreneur, you could create a cohesive brand identity by using a specific color scheme and logo across all your marketing materials, and by developing a warm, empathetic tone in their communications.
+
+   \n **Email Marketing** Email marketing is the practice of sending targeted, personalized emails to a list of subscribers who have opted-in to receive communications from your business. It can be used to nurture leads, promote services, and build customer loyalty.
+   \n **Example:** As a CAI entrepreneur, you could send a monthly newsletter featuring health tips, client success stories, and promotional offers for your services.
+
+   \n **Social Media Advertising** Social media advertising involves creating and placing paid ads on social media platforms like Facebook, Instagram, and LinkedIn to reach a larger, targeted audience.
+   \n **Example:** As a CAI entrepreneur, you could create a Meta ad campaign targeting people in your local area who have expressed interest in holistic health, meditation, or stress relief.
+
+   \n **Analytics** Analytics refers to the process of collecting, analyzing, and reporting data related to your marketing efforts. It helps you measure the effectiveness of your campaigns and make data-driven decisions.
+   \n **Example:** As a CAI entrepreneur using Portico Care, we will share Analytics to track website traffic, page views, and conversion rates. You could use this data to optimize your content and marketing strategies.
+
+   \n **Customer Personas** Customer personas are fictional, generalized representations of your ideal customers. They help you understand your target audience's needs, preferences, and behaviors, enabling you to tailor your marketing efforts accordingly.
+   \n **Example:** A CAI entrepreneur, you could create a persona representing a busy, health-conscious professional looking for natural ways to manage stress and improve well-being.
+
+   \n **Content Calendar** A content calendar is a planning tool that helps you organize, schedule, and manage your content creation and distribution across various marketing channels.
+   \n **Example:** As a CAI entrepreneur, you could use a content calendar to plan out a month's worth of blog posts, social media updates, and email newsletters, ensuring a consistent and balanced content mix.
+
+   \n **A/B Testing** A/B testing, also known as split testing, is a method of comparing two versions of a marketing element (such as a webpage, email subject line, or ad) to determine which one performs better.
+   \n **Example:** As a CAI entrepreneur, you could create two versions of a social media post, each with a different headline, and use A/B testing to see which one generates more sign-ups for a free consultation.
+
+   \n **Customer Retention** Customer retention refers to the strategies and actions taken by a business to keep existing customers engaged and encourage them to continue using their products or services.
+   \n **Example:** A CAI entrepreneur, you could implement a loyalty program that rewards clients for recurring appointments or referrals, helping to foster long-term relationships and reduce client churn.
+    """)
