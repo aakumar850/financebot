@@ -2,11 +2,11 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Learn | Marketing Tips and Tricks",
-    page_icon="Portico care logo.png",
+    page_icon="portico_bug.svg",
 )
 
 (column1,column2)=st.columns([2,8])
-column1.image("Portico care logo.png", width=100)
+column1.image("Portico-logo-color.svg", width=100)
 column2.title("Key Marketing Concepts")
 
 st.write("""

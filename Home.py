@@ -4,12 +4,12 @@ import openai
 
 st.set_page_config(
     page_title="Home | Your Portico Wellness Marketing Assistant",
-    page_icon="Portico care logo.png",
+    page_icon="portico_bug.svg",
 )
 #AK test
 #title page
 #display an image
-st.image("Portico care logo.png", width=400)
+st.image("Portico-logo-color.svg", width=400)
 
 st.title("About the website")
 st.write("""

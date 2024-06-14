@@ -3,12 +3,12 @@ import streamlit as st
 print(f"3")
 st.set_page_config(
     page_title="Create | Your Portico Wellness Marketing Assistant",
-    page_icon="Portico care logo.png",
+    page_icon="portico_bug.svg",
 )
 client=OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
 
 (column1,column2)=st.columns([2,8])
-column1.image("Portico care logo.png", width=100)
+column1.image("Portico-logo-color.svg", width=100)
 column2.title("Your Marketing Assistant")
 st.markdown("""
 \n **:green[Marketing strategy guidance:]** I will offer you a step-by-step guidance on creating a marketing plan tailored to your CAI practice, including setting goals, identifying target audiences, and choosing the right marketing channels. 

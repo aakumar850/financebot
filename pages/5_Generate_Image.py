@@ -3,12 +3,12 @@ import streamlit as st
 print(f"3")
 st.set_page_config(
     page_title="Create | Your Portico Wellness Marketing Assistant",
-    page_icon="Portico care logo.png",
+    page_icon="portico_bug.svg",
 )
 client=OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
 
 (column1,column2)=st.columns([2,8])
-column1.image("Portico care logo.png", width=100)
+column1.image("Portico-logo-color.svg", width=100)
 column2.title("Your Marketing Assistant")
 st.markdown("""
 I will assist with your **:green[image generation]** that you can use on your website, blog posts, social media, email campaigns, newsletters and many more ways.
