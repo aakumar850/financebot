@@ -53,7 +53,7 @@ Content Creation Templates:
    - #[YourBrand] #[Relevant Hashtag] #[Industry Hashtag]
    - Call-to-action or question to encourage interaction
    - Tagging relevant accounts or partners
-   - Tracking links or UTM parameters for analytics starting with www.porticowellness/yoursubdomain
+   - Tracking links or UTM parameters for analytics starting with www.porticocare/yoursubdomain
 
 3. Email Newsletter Template
    - Compelling subject line
