@@ -38,6 +38,7 @@ Content Creation Templates:
    - Attention-grabbing headline
    - Introduction with a hook
    - Subheadings for main points
+   - Content for each main point
    - Relevant images or videos
    - Call-to-action (CTA) at the end
    - Meta title and description for SEO
