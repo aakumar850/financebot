@@ -155,5 +155,6 @@ if prompt := st.chat_input("Please paste the marketing information that you'd li
             send_request_and_process(full_response)
         except Exception as err:
             print("!! Request failed!", err)
-            st.markdown("Internal error. Pls contact the administrator.")
+            #st.markdown("Internal error. Pls contact the administrator.")
+            st.markdown(f"Internal error. Pls contact the administrator. Error: {err=}, {type(err)=}")
         
